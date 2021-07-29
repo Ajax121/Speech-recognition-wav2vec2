@@ -14,7 +14,7 @@ BASEFILE = "audio.wav"
 PREFIX = datetime.datetime.now().strftime("%y%m%d_%H%M%S")
 SAMPLERATE = 16000  
 DURATION = 10 # seconds
-LANG = {"English":"facebook/wav2vec2-base-960h","German":"facebook/wav2vec2-large-xlsr-53-german","Italian":"facebook/wav2vec2-large-xlsr-53-italian"} 
+LANG = {"English":"facebook/wav2vec2-large-960h-lv60","German":"facebook/wav2vec2-large-xlsr-53-german","Italian":"facebook/wav2vec2-large-xlsr-53-italian"} 
 TRANSLATE = {"English":"EN","German":"DE","Italian":"IT"}
 CHOICE_LIST = {"Record audio":0,"Upload audio(.wav)":1}
 
