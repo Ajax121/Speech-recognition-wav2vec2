@@ -9,8 +9,11 @@ import soundfile as sf
 import matplotlib.pyplot as plt
 import requests
 from config import DEEPL
+#from gtts import gTTS
 import datetime
+
 BASEFILE = "audio.wav"
+OUTFILE = "audio_output.wav"
 PREFIX = datetime.datetime.now().strftime("%y%m%d_%H%M%S")
 SAMPLERATE = 16000  
 DURATION = 10 # seconds
@@ -22,7 +25,7 @@ CHOICE_LIST = {"Record audio":0,"Upload audio(.wav)":1}
 def speech2text(file_name):
     tokenizer = Wav2Vec2Processor.from_pretrained(LANG[lang_selected])
     model = Wav2Vec2ForCTC.from_pretrained(LANG[lang_selected])
-    speech, rate = librosa.load(file_name,sr=16000,duration = DURATION)
+    speech, rate = librosa.load(file_name,sr=16000)
     input_values = tokenizer(speech,sampling_rate=16000,return_tensors='pt').input_values
     logits = model(input_values).logits
     predicted_ids = torch.argmax(logits,dim=-1)
@@ -40,6 +43,15 @@ def translate_deepl(text,lang_to_translate):
     response = requests.post(url, data=body)
     translated_text = response.json()["translations"][0]["text"]
     return translated_text
+
+
+# def google_voice(translated_text,lang_to_translate):
+#     tts = gTTS(text = translated_text, lang = TRANSLATE[lang_to_translate])
+#     file_name = "_".join([PREFIX, OUTFILE])
+#     tts.save(file_name)
+#     audio_file = open(file_name, 'rb')
+#     audio_bytes = audio_file.read()
+#     return st.audio(audio_bytes, format='audio/wav')
 
 def wave_plot(speech):
     fig = plt.figure(figsize=(14, 8))
@@ -87,8 +99,9 @@ if __name__=="__main__":
                     
                     translated = translate_deepl(transcript,lang_tranlate_selection)
                     st.write("Translated text: ",translated)
-        
-                    
+
+                    #google_voice(translated, lang_tranlate_selection)   
+                    st.write(translated, lang_tranlate_selection)                 
                 except:
                     st.write("Please record audio first")
                    
@@ -116,6 +129,11 @@ if __name__=="__main__":
                 
                 translated_uploaded = translate_deepl(transcript_uploaded,lang_tranlate_selection)
                 st.write("Translated text: ",translated_uploaded)
+                st.write(translated_uploaded, lang_tranlate_selection)                 
+
+                #google_voice(translated_uploaded, lang_tranlate_selection) 
+                   
+
     except:
         st.write("Choose an option")
             
