@@ -35,7 +35,7 @@ def translate_deepl(text,lang_to_translate):
     url = "https://api-free.deepl.com/v2/translate"
     body = {
         "text": text,
-        "auth_key": st.secrets['API_KEY'],
+        "auth_key": st.secrets["API_KEY"],
         "target_lang": TRANSLATE[lang_to_translate],
     }
 
