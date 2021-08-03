@@ -8,7 +8,7 @@ import sounddevice as sd
 import soundfile as sf
 import matplotlib.pyplot as plt
 import requests
-from config import DEEPL
+#from config import DEEPL
 from gtts import gTTS
 import datetime
 
