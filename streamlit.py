@@ -8,7 +8,7 @@ import sounddevice as sd
 import soundfile as sf
 import matplotlib.pyplot as plt
 import requests
-#from config import DEEPL
+from config import DEEPL
 from gtts import gTTS
 import datetime
 
@@ -35,7 +35,7 @@ def translate_deepl(text,lang_to_translate):
     url = "https://api-free.deepl.com/v2/translate"
     body = {
         "text": text,
-        "auth_key": st.secrets["API_KEY"],
+        "auth_key": DEEPL["API_KEY"],
         "target_lang": TRANSLATE[lang_to_translate],
     }
 
